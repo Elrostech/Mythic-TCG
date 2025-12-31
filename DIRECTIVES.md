@@ -3,8 +3,6 @@
 Ce fichier sert à consigner les prochaines étapes et les directives spécifiques pour l'évolution de l'application Mythic TCG.
 
 ## Prochaines étapes
-- Ajouter un système de deck building
-- Implémenter des effets sonores lors de l'ouverture des boosters
 
 ## Historique des fonctionnalités
 - Collection de cartes mythologiques.
@@ -14,4 +12,6 @@ Ce fichier sert à consigner les prochaines étapes et les directives spécifiqu
 - Menu de navigation (Temple & Collection).
 - Persistance locale (LocalStorage).
 - Traduction intégrale de l'application en français.
-- **Vue détaillée des cartes : Cliquez sur une carte pour l'agrandir et lire son histoire complète.**
+- Vue détaillée des cartes : Cliquez sur une carte pour l'agrandir et lire son histoire complète.
+- **Système de Deck Building : Créez votre deck personnalisé de 20 cartes.**
+- **Effets Sonores : Ambiance sonore synthétisée lors de l'ouverture des boosters et des interactions.**

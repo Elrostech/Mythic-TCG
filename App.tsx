@@ -4,7 +4,9 @@ import { MythologyCard, ViewState } from './types';
 import Navbar from './components/Navbar';
 import TempleView from './components/TempleView';
 import CollectionView from './components/CollectionView';
+import DeckView from './components/DeckView';
 import CardModal from './components/CardModal';
+import { soundService } from './services/soundService';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>('temple');
@@ -13,10 +15,19 @@ const App: React.FC = () => {
     const saved = localStorage.getItem('mythic_collection');
     return saved ? JSON.parse(saved) : [];
   });
+  
+  const [deckIds, setDeckIds] = useState<string[]>(() => {
+    const saved = localStorage.getItem('mythic_deck');
+    return saved ? JSON.parse(saved) : [];
+  });
 
   useEffect(() => {
     localStorage.setItem('mythic_collection', JSON.stringify(collection));
   }, [collection]);
+
+  useEffect(() => {
+    localStorage.setItem('mythic_deck', JSON.stringify(deckIds));
+  }, [deckIds]);
 
   const handleCardsGained = (newCards: MythologyCard[]) => {
     setCollection(prev => [...newCards, ...prev]);
@@ -26,19 +37,60 @@ const App: React.FC = () => {
     setSelectedCard(card);
   };
 
+  const handleToggleDeck = (cardId: string) => {
+    setDeckIds(prev => {
+      const exists = prev.includes(cardId);
+      if (exists) {
+        soundService.playDeckToggle(false);
+        return prev.filter(id => id !== cardId);
+      } else {
+        if (prev.length >= 20) {
+          alert("Votre deck est déjà au maximum (20 cartes) !");
+          return prev;
+        }
+        soundService.playDeckToggle(true);
+        return [...prev, cardId];
+      }
+    });
+  };
+
+  const handleClearDeck = () => {
+    if (confirm("Vider votre deck ?")) {
+      setDeckIds([]);
+      soundService.playDeckToggle(false);
+    }
+  };
+
+  const deckCards = collection.filter(card => deckIds.includes(card.id));
+
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
       <Navbar 
         currentView={view} 
         setView={setView} 
-        collectionCount={collection.length} 
+        collectionCount={collection.length}
+        deckCount={deckIds.length}
       />
 
       <main className="transition-all duration-300">
-        {view === 'temple' ? (
+        {view === 'temple' && (
           <TempleView onCardsGained={handleCardsGained} onCardClick={handleCardClick} />
-        ) : (
-          <CollectionView collection={collection} onCardClick={handleCardClick} />
+        )}
+        {view === 'collection' && (
+          <CollectionView 
+            collection={collection} 
+            onCardClick={handleCardClick} 
+            deckIds={deckIds}
+            onToggleDeck={handleToggleDeck}
+          />
+        )}
+        {view === 'deck' && (
+          <DeckView 
+            deck={deckCards} 
+            onCardClick={handleCardClick} 
+            onRemoveFromDeck={handleToggleDeck}
+            onClearDeck={handleClearDeck}
+          />
         )}
       </main>
 

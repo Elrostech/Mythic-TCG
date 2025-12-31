@@ -6,9 +6,11 @@ import MythicCard from './MythicCard';
 interface Props {
   collection: MythologyCard[];
   onCardClick: (card: MythologyCard) => void;
+  deckIds: string[];
+  onToggleDeck: (cardId: string) => void;
 }
 
-const CollectionView: React.FC<Props> = ({ collection, onCardClick }) => {
+const CollectionView: React.FC<Props> = ({ collection, onCardClick, deckIds, onToggleDeck }) => {
   const [filterType, setFilterType] = useState<CardType | 'All'>('All');
   const [filterRarity, setFilterRarity] = useState<Rarity | 'All'>('All');
   const [search, setSearch] = useState('');
@@ -92,9 +94,19 @@ const CollectionView: React.FC<Props> = ({ collection, onCardClick }) => {
       </div>
 
       {filteredCollection.length > 0 ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 sm:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-12 sm:gap-x-8">
           {filteredCollection.map((card) => (
-            <MythicCard key={card.id} card={card} onClick={() => onCardClick(card)} />
+            <MythicCard 
+              key={card.id} 
+              card={card} 
+              onClick={() => onCardClick(card)} 
+              showDeckToggle
+              isInDeck={deckIds.includes(card.id)}
+              onDeckToggle={(e) => {
+                e.stopPropagation();
+                onToggleDeck(card.id);
+              }}
+            />
           ))}
         </div>
       ) : (

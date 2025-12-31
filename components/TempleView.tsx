@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { MythologyCard } from '../types';
 import { generateBoosterPack } from '../services/geminiService';
+import { soundService } from '../services/soundService';
 import MythicCard from './MythicCard';
 
 interface Props {
@@ -18,6 +19,8 @@ const TempleView: React.FC<Props> = ({ onCardsGained, onCardClick }) => {
     setIsOpening(true);
     setOpenedCards([]);
     setShowCards(false);
+    
+    soundService.playBoosterOpen();
 
     try {
       const cards = await generateBoosterPack();
@@ -26,6 +29,7 @@ const TempleView: React.FC<Props> = ({ onCardsGained, onCardClick }) => {
         setIsOpening(false);
         setShowCards(true);
         onCardsGained(cards);
+        soundService.playCardReveal();
       }, 1500);
     } catch (err) {
       console.error(err);
