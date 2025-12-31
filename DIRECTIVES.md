@@ -22,4 +22,5 @@ Ce fichier sert à consigner les prochaines étapes et les directives spécifiqu
 - Ajout de Séléné : La déesse de la lune a rejoint le panthéon grec dans le Compendium.
 - Section Admin : Nouvel onglet permettant d'invoquer n'importe quelle entité (Nom, Mythologie, Rareté, Type personnalisables) via l'IA, et option de réinitialisation complète.
 - Suppression du logo Discord : Épurage des réseaux sociaux dans la barre de navigation.
-- **Statistiques et Capacités : Ajout des valeurs d'Attaque, de Défense et de Capacités Spéciales uniques pour les cartes de haute rareté.**
+- Statistiques et Capacités : Ajout des valeurs d'Attaque, de Défense et de Capacités Spéciales uniques pour les cartes de haute rareté.
+- **Correction visuelle : Ajout de l'icône du temple (fa-landmark) pour le booster de l'Olympe.**

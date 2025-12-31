@@ -22,7 +22,7 @@ interface BoosterConfig {
 
 const BOOSTERS: BoosterConfig[] = [
   { id: 'mixed', name: 'Booster Divin', mythology: 'Mélangée', color: 'from-amber-600 to-amber-900', icon: 'fa-bolt', description: 'Un mélange de toutes les légendes du monde.' },
-  { id: 'greek', name: 'Booster de l\'Olympe', mythology: 'Grecque', color: 'from-blue-600 to-sky-900', icon: 'fa-temple', description: 'Les dieux et héros de la Grèce antique.' },
+  { id: 'greek', name: 'Booster de l\'Olympe', mythology: 'Grecque', color: 'from-blue-600 to-sky-900', icon: 'fa-landmark', description: 'Les dieux et héros de la Grèce antique.' },
   { id: 'norse', name: 'Booster d\'Asgard', mythology: 'Nordique', color: 'from-red-600 to-orange-900', icon: 'fa-hammer', description: 'La puissance des guerriers du Nord.' },
   { id: 'egypt', name: 'Booster du Nil', mythology: 'Égyptienne', color: 'from-yellow-500 to-amber-800', icon: 'fa-ankh', description: 'Les mystères des pharaons et du désert.' },
   { id: 'japan', name: 'Booster du Soleil', mythology: 'Japonaise', color: 'from-pink-600 to-red-900', icon: 'fa-torii-gate', description: 'Les esprits et kamis du Japon féodal.' },
