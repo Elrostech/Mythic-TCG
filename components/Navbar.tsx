@@ -24,7 +24,7 @@ const Navbar: React.FC<Props> = ({ currentView, setView, collectionCount }) => {
           className={`flex flex-col sm:flex-row items-center gap-1 sm:gap-3 px-4 py-2 rounded-xl transition-all ${currentView === 'temple' ? 'bg-amber-500/10 text-amber-500' : 'text-stone-500 hover:text-stone-300'}`}
         >
           <i className={`fa-solid fa-synagogue text-xl sm:text-base`}></i>
-          <span className="text-[10px] sm:text-sm font-cinzel font-bold uppercase tracking-widest">The Temple</span>
+          <span className="text-[10px] sm:text-sm font-cinzel font-bold uppercase tracking-widest">Le Temple</span>
         </button>
 
         <button 

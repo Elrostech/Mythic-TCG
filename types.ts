@@ -1,16 +1,16 @@
 
 export enum Rarity {
-  NORMAL = 'Normal',
+  NORMAL = 'Normale',
   RARE = 'Rare',
-  EPIC = 'Epic',
-  HEROIC = 'Heroic',
-  MYTHIC = 'Mythic'
+  EPIC = 'Épique',
+  HEROIC = 'Héroïque',
+  MYTHIC = 'Mythique'
 }
 
 export enum CardType {
-  CHARACTER = 'Character',
-  OBJECT = 'Object',
-  PLACE = 'Place'
+  CHARACTER = 'Personnage',
+  OBJECT = 'Objet',
+  PLACE = 'Lieu'
 }
 
 export interface MythologyCard {

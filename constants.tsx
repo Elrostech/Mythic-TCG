@@ -10,5 +10,5 @@ export const RARITY_STYLES: Record<Rarity, string> = {
 };
 
 export const MYTHOLOGIES = [
-  'Greek', 'Norse', 'Egyptian', 'Japanese', 'Celtic', 'Aztec', 'Hindu'
+  'Grecque', 'Nordique', 'Égyptienne', 'Japonaise', 'Celtique', 'Aztèque', 'Hindoue'
 ];

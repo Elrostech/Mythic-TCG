@@ -21,16 +21,17 @@ const CARD_SCHEMA = {
 };
 
 export const generateBoosterPack = async (): Promise<MythologyCard[]> => {
-  const prompt = `Generate 6 mythological cards for a booster pack.
-  Constraints:
-  - 3 must be Normal rarity.
-  - 2 must be Rare rarity.
-  - 1 must be Epic rarity.
-  - There is a 5% chance that the Epic card is replaced by a Mythic card.
-  - There is a 10% chance that one Rare card is replaced by a Heroic card.
-  - Cards can be from Greek, Norse, Egyptian, Japanese, or other global mythologies.
-  - Types must be Character, Object, or Place.
-  - Provide a compelling name, short description, and immersive lore for each.`;
+  const prompt = `Génère 6 cartes mythologiques pour un booster pack en FRANÇAIS.
+  Contraintes :
+  - Le nom, la mythologie, la description et le lore DOIVENT être en français.
+  - 3 cartes doivent avoir la rareté 'Normale'.
+  - 2 cartes doivent avoir la rareté 'Rare'.
+  - 1 carte doit avoir la rareté 'Épique'.
+  - Il y a 5% de chance que la carte Épique soit remplacée par une carte 'Mythique'.
+  - Il y a 10% de chance qu'une carte Rare soit remplacée par une carte 'Héroïque'.
+  - Les mythologies peuvent être Grecque, Nordique, Égyptienne, Japonaise, ou d'autres mythologies mondiales.
+  - Les types doivent être : Personnage, Objet, ou Lieu.
+  - Fournis un nom épique, une description courte et un lore immersif pour chaque carte.`;
 
   try {
     const response = await ai.models.generateContent({
@@ -51,8 +52,7 @@ export const generateBoosterPack = async (): Promise<MythologyCard[]> => {
       imageUrl: `https://picsum.photos/seed/${encodeURIComponent(card.name)}/400/600`
     }));
   } catch (error) {
-    console.error("Error generating booster:", error);
-    // Fallback static cards if API fails
+    console.error("Erreur lors de la génération du booster :", error);
     return [];
   }
 };
