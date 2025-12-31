@@ -10,20 +10,39 @@ interface Props {
   onCardClick: (card: MythologyCard) => void;
 }
 
+interface BoosterConfig {
+  id: string;
+  name: string;
+  mythology: string;
+  color: string;
+  icon: string;
+  description: string;
+}
+
+const BOOSTERS: BoosterConfig[] = [
+  { id: 'mixed', name: 'Booster Divin', mythology: 'Mélangée', color: 'from-amber-600 to-amber-900', icon: 'fa-bolt', description: 'Un mélange de toutes les légendes du monde.' },
+  { id: 'greek', name: 'Booster de l\'Olympe', mythology: 'Grecque', color: 'from-blue-600 to-sky-900', icon: 'fa-temple', description: 'Les dieux et héros de la Grèce antique.' },
+  { id: 'norse', name: 'Booster d\'Asgard', mythology: 'Nordique', color: 'from-red-600 to-orange-900', icon: 'fa-hammer', description: 'La puissance des guerriers du Nord.' },
+  { id: 'egypt', name: 'Booster du Nil', mythology: 'Égyptienne', color: 'from-yellow-500 to-amber-800', icon: 'fa-ankh', description: 'Les mystères des pharaons et du désert.' },
+  { id: 'japan', name: 'Booster du Soleil', mythology: 'Japonaise', color: 'from-pink-600 to-red-900', icon: 'fa-torii-gate', description: 'Les esprits et kamis du Japon féodal.' },
+];
+
 const TempleView: React.FC<Props> = ({ onCardsGained, onCardClick }) => {
   const [isOpening, setIsOpening] = useState(false);
   const [openedCards, setOpenedCards] = useState<MythologyCard[]>([]);
   const [showCards, setShowCards] = useState(false);
+  const [selectedBooster, setSelectedBooster] = useState<BoosterConfig | null>(null);
 
-  const handleOpenBooster = async () => {
+  const handleOpenBooster = async (booster: BoosterConfig) => {
     setIsOpening(true);
+    setSelectedBooster(booster);
     setOpenedCards([]);
     setShowCards(false);
     
     soundService.playBoosterOpen();
 
     try {
-      const cards = await generateBoosterPack();
+      const cards = await generateBoosterPack(booster.mythology);
       setOpenedCards(cards);
       setTimeout(() => {
         setIsOpening(false);
@@ -40,6 +59,7 @@ const TempleView: React.FC<Props> = ({ onCardsGained, onCardClick }) => {
   const reset = () => {
     setShowCards(false);
     setOpenedCards([]);
+    setSelectedBooster(null);
   };
 
   return (
@@ -50,53 +70,69 @@ const TempleView: React.FC<Props> = ({ onCardsGained, onCardClick }) => {
       </div>
 
       {!showCards ? (
-        <div className="flex flex-col items-center gap-8 max-w-md w-full text-center">
-          <div className={`relative transition-all duration-700 ${isOpening ? 'scale-125 rotate-6' : 'hover:scale-105'}`}>
-            <div className={`w-48 sm:w-64 aspect-[2/3] bg-gradient-to-br from-amber-600 to-amber-900 rounded-2xl border-2 border-amber-400/30 p-1 shadow-[0_0_50px_rgba(217,119,6,0.3)] relative overflow-hidden group cursor-pointer ${isOpening ? 'animate-ping' : ''}`} onClick={!isOpening ? handleOpenBooster : undefined}>
-                <div className="w-full h-full bg-stone-900 rounded-xl flex flex-col items-center justify-center gap-4 relative">
-                   <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-                   <div className="z-10 bg-amber-500 p-4 rounded-full shadow-2xl">
-                      <i className="fa-solid fa-bolt text-4xl text-stone-900"></i>
-                   </div>
-                   <div className="z-10 flex flex-col items-center gap-1">
-                      <h2 className="font-cinzel text-xl font-black text-amber-500">BOOSTER DIVIN</h2>
-                      <p className="text-[10px] tracking-[0.3em] font-cinzel text-amber-400/60 font-bold uppercase">6 Objets Mythiques</p>
-                   </div>
-                   <div className="z-10 mt-4 text-[10px] text-stone-500 uppercase tracking-widest font-bold">Invoquer des Artéfacts</div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-            </div>
+        <div className="w-full max-w-6xl flex flex-col items-center gap-12">
+          <div className="text-center space-y-4">
+            <h2 className="font-cinzel text-4xl sm:text-5xl font-black text-white uppercase tracking-tighter">Le Temple des Invocations</h2>
+            <p className="text-stone-400 text-sm sm:text-base max-w-xl mx-auto">
+              Choisissez votre offrande. Chaque booster contient 6 cartes : 3 Normales, 2 Rares et 1 Épique minimum.
+            </p>
           </div>
 
-          <div className="space-y-4">
-            <h2 className="font-cinzel text-2xl sm:text-3xl font-black text-white uppercase tracking-tighter">Offrande Divine</h2>
-            <p className="text-stone-400 text-sm max-w-xs mx-auto">
-              Invoquez 6 artéfacts uniques des annales du temps. Contient au minimum 3 Normales, 2 Rares et 1 Épique.
-            </p>
-            <button 
-              disabled={isOpening}
-              onClick={handleOpenBooster}
-              className={`w-full py-4 rounded-xl font-cinzel font-black tracking-widest uppercase transition-all flex items-center justify-center gap-3 ${isOpening ? 'bg-stone-800 text-stone-500 cursor-not-allowed' : 'bg-amber-600 hover:bg-amber-500 text-stone-900 shadow-xl shadow-amber-900/40 transform active:scale-95'}`}
-            >
-              {isOpening ? (
-                <>
-                  <i className="fa-solid fa-circle-notch animate-spin"></i>
-                  Invocation...
-                </>
-              ) : (
-                <>
-                  <i className="fa-solid fa-sparkles"></i>
-                  Ouvrir Booster
-                </>
-              )}
-            </button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 w-full px-4">
+            {BOOSTERS.map((booster) => (
+              <div 
+                key={booster.id}
+                className={`flex flex-col items-center gap-4 transition-all duration-700 ${isOpening && selectedBooster?.id === booster.id ? 'scale-110' : isOpening ? 'opacity-20 scale-90 blur-sm' : 'hover:scale-105'}`}
+              >
+                <div 
+                  className={`w-full aspect-[2/3] bg-gradient-to-br ${booster.color} rounded-2xl border-2 border-white/20 p-1 shadow-2xl relative overflow-hidden group cursor-pointer ${isOpening && selectedBooster?.id === booster.id ? 'animate-pulse' : ''}`}
+                  onClick={() => !isOpening && handleOpenBooster(booster)}
+                >
+                  <div className="w-full h-full bg-stone-900 rounded-xl flex flex-col items-center justify-center gap-4 relative">
+                    <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+                    <div className={`z-10 bg-white/10 p-4 rounded-full shadow-2xl backdrop-blur-md border border-white/20 group-hover:scale-110 transition-transform`}>
+                      <i className={`fa-solid ${booster.icon} text-3xl text-white`}></i>
+                    </div>
+                    <div className="z-10 flex flex-col items-center gap-1 px-4 text-center">
+                      <h3 className="font-cinzel text-sm font-black text-white">{booster.name}</h3>
+                      <p className="text-[8px] tracking-[0.2em] font-cinzel text-white/50 font-bold uppercase">{booster.mythology}</p>
+                    </div>
+                  </div>
+                  {/* Glow effect */}
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none`}></div>
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                </div>
+                
+                <div className="text-center px-2">
+                  <p className="text-[10px] text-stone-500 font-bold uppercase tracking-widest leading-tight">{booster.description}</p>
+                </div>
+
+                <button 
+                  disabled={isOpening}
+                  onClick={() => handleOpenBooster(booster)}
+                  className={`px-6 py-2 rounded-full font-cinzel text-[10px] font-black tracking-widest uppercase transition-all flex items-center gap-2 ${isOpening && selectedBooster?.id === booster.id ? 'bg-amber-600 text-stone-900' : 'bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700'}`}
+                >
+                  {isOpening && selectedBooster?.id === booster.id ? (
+                    <>
+                      <i className="fa-solid fa-circle-notch animate-spin"></i>
+                      Invocation...
+                    </>
+                  ) : (
+                    <>
+                      <i className="fa-solid fa-sparkles"></i>
+                      Ouvrir
+                    </>
+                  )}
+                </button>
+              </div>
+            ))}
           </div>
         </div>
       ) : (
         <div className="w-full max-w-6xl flex flex-col items-center gap-8 animate-in fade-in zoom-in duration-500">
           <div className="text-center space-y-2">
             <h2 className="font-cinzel text-4xl font-black text-amber-500 uppercase tracking-tighter">Résultats</h2>
-            <p className="text-stone-500 text-sm uppercase tracking-widest font-bold">Dons des Divinités</p>
+            <p className="text-stone-500 text-sm uppercase tracking-widest font-bold">Dons des Divinités ({selectedBooster?.mythology})</p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 w-full px-4">

@@ -13,5 +13,6 @@ Ce fichier sert à consigner les prochaines étapes et les directives spécifiqu
 - Persistance locale (LocalStorage).
 - Traduction intégrale de l'application en français.
 - Vue détaillée des cartes : Cliquez sur une carte pour l'agrandir et lire son histoire complète.
-- **Système de Deck Building : Créez votre deck personnalisé de 20 cartes.**
-- **Effets Sonores : Ambiance sonore synthétisée lors de l'ouverture des boosters et des interactions.**
+- Système de Deck Building : Créez votre deck personnalisé de 20 cartes.
+- Effets Sonores : Ambiance sonore synthétisée lors de l'ouverture des boosters et des interactions.
+- **Boosters Thématiques : Plusieurs types de boosters disponibles (Mélangé, Grec, Nordique, Égyptien, Japonais).**
