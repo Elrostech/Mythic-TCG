@@ -59,6 +59,14 @@ const Navbar: React.FC<Props> = ({ currentView, setView, collectionCount, deckCo
           <i className={`fa-solid fa-book-atlas text-xl sm:text-base`}></i>
           <span className="text-[10px] sm:text-xs font-cinzel font-bold uppercase tracking-widest">Compendium</span>
         </button>
+
+        <button 
+          onClick={() => setView('admin')}
+          className={`flex flex-col sm:flex-row items-center gap-1 md:gap-3 px-2 sm:px-3 py-2 rounded-xl transition-all ${currentView === 'admin' ? 'bg-red-500/10 text-red-500' : 'text-stone-500 hover:text-stone-300'}`}
+        >
+          <i className={`fa-solid fa-user-shield text-xl sm:text-base`}></i>
+          <span className="text-[10px] sm:text-xs font-cinzel font-bold uppercase tracking-widest">Admin</span>
+        </button>
       </div>
 
       <div className="hidden sm:flex items-center gap-4 text-stone-400">

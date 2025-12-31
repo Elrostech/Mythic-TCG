@@ -6,6 +6,7 @@ import TempleView from './components/TempleView';
 import CollectionView from './components/CollectionView';
 import DeckView from './components/DeckView';
 import CompendiumView from './components/CompendiumView';
+import AdminView from './components/AdminView';
 import CardModal from './components/CardModal';
 import { soundService } from './services/soundService';
 
@@ -32,6 +33,10 @@ const App: React.FC = () => {
 
   const handleCardsGained = (newCards: MythologyCard[]) => {
     setCollection(prev => [...newCards, ...prev]);
+  };
+
+  const handleCardGained = (newCard: MythologyCard) => {
+    setCollection(prev => [newCard, ...prev]);
   };
 
   const handleCardClick = (card: MythologyCard) => {
@@ -97,6 +102,11 @@ const App: React.FC = () => {
           <CompendiumView 
             collection={collection} 
             onCardClick={handleCardClick} 
+          />
+        )}
+        {view === 'admin' && (
+          <AdminView 
+            onCardGained={handleCardGained}
           />
         )}
       </main>

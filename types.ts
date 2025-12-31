@@ -25,4 +25,4 @@ export interface MythologyCard {
   timestamp: number;
 }
 
-export type ViewState = 'temple' | 'collection' | 'deck' | 'compendium';
+export type ViewState = 'temple' | 'collection' | 'deck' | 'compendium' | 'admin';

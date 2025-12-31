@@ -20,6 +20,19 @@ const CARD_SCHEMA = {
   }
 };
 
+const SINGLE_CARD_SCHEMA = {
+  type: Type.OBJECT,
+  properties: {
+    name: { type: Type.STRING },
+    type: { type: Type.STRING, enum: Object.values(CardType) },
+    rarity: { type: Type.STRING, enum: Object.values(Rarity) },
+    mythology: { type: Type.STRING },
+    description: { type: Type.STRING },
+    lore: { type: Type.STRING }
+  },
+  required: ["name", "type", "rarity", "mythology", "description", "lore"]
+};
+
 export const generateBoosterPack = async (targetMythology: string = "mélangée", isPremium: boolean = false): Promise<MythologyCard[]> => {
   const isMixed = targetMythology.toLowerCase() === "mélangée";
   
@@ -68,5 +81,37 @@ export const generateBoosterPack = async (targetMythology: string = "mélangée"
   } catch (error) {
     console.error("Erreur lors de la génération du booster :", error);
     return [];
+  }
+};
+
+export const generateSpecificCard = async (name: string, rarity: Rarity, type: CardType, mythology: string): Promise<MythologyCard | null> => {
+  const prompt = `Génère une carte mythologique détaillée en FRANÇAIS.
+  Nom suggéré : ${name}
+  Rareté : ${rarity}
+  Type : ${type}
+  Mythologie : ${mythology}
+  
+  Fournis une description courte et un lore immersif correspondant à ces critères.`;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-3-flash-preview",
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: SINGLE_CARD_SCHEMA as any,
+      },
+    });
+
+    const cardData = JSON.parse(response.text || '{}');
+    return {
+      ...cardData,
+      id: `${Date.now()}-admin`,
+      timestamp: Date.now(),
+      imageUrl: `https://picsum.photos/seed/${encodeURIComponent(cardData.name)}/400/600`
+    };
+  } catch (error) {
+    console.error("Erreur lors de la génération de la carte admin :", error);
+    return null;
   }
 };
