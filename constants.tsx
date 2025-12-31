@@ -25,6 +25,7 @@ export const COMPENDIUM_DATA: CompendiumEntry[] = [
   { name: 'Poséidon', mythology: 'Grecque', rarity: Rarity.MYTHIC },
   { name: 'Hadès', mythology: 'Grecque', rarity: Rarity.MYTHIC },
   { name: 'Athéna', mythology: 'Grecque', rarity: Rarity.HEROIC },
+  { name: 'Séléné', mythology: 'Grecque', rarity: Rarity.HEROIC },
   { name: 'Foudre de Zeus', mythology: 'Grecque', rarity: Rarity.EPIC },
   { name: 'Mont Olympe', mythology: 'Grecque', rarity: Rarity.RARE },
   

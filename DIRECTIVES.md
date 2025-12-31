@@ -18,4 +18,5 @@ Ce fichier sert à consigner les prochaines étapes et les directives spécifiqu
 - Effets Sonores : Ambiance sonore synthétisée lors de l'ouverture des boosters et des interactions.
 - Boosters Thématiques : Plusieurs types de boosters disponibles (Mélangé, Grec, Nordique, Égyptien, Japonais).
 - Cartes Mythiques Garanties : Ajout d'un booster "Ancestral" premium garantissant des cartes Mythiques et Héroïques, et augmentation des chances sur les boosters classiques.
-- **Compendium des Dieux : Nouvelle section listant toutes les entités mythiques possibles par booster. Les cartes non-possédées apparaissent en gris mais restent lisibles. Fonction de recherche intégrée.**
+- Compendium des Dieux : Nouvelle section listant toutes les entités mythiques possibles par booster. Les cartes non-possédées apparaissent en gris mais restent lisibles. Fonction de recherche intégrée.
+- **Ajout de Séléné : La déesse de la lune a rejoint le panthéon grec dans le Compendium.**
