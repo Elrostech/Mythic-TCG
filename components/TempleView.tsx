@@ -6,9 +6,10 @@ import MythicCard from './MythicCard';
 
 interface Props {
   onCardsGained: (cards: MythologyCard[]) => void;
+  onCardClick: (card: MythologyCard) => void;
 }
 
-const TempleView: React.FC<Props> = ({ onCardsGained }) => {
+const TempleView: React.FC<Props> = ({ onCardsGained, onCardClick }) => {
   const [isOpening, setIsOpening] = useState(false);
   const [openedCards, setOpenedCards] = useState<MythologyCard[]>([]);
   const [showCards, setShowCards] = useState(false);
@@ -97,7 +98,7 @@ const TempleView: React.FC<Props> = ({ onCardsGained }) => {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 w-full px-4">
             {openedCards.map((card, idx) => (
               <div key={card.id} className="animate-in fade-in slide-in-from-bottom duration-700" style={{ animationDelay: `${idx * 150}ms` }}>
-                <MythicCard card={card} isNew />
+                <MythicCard card={card} isNew onClick={() => onCardClick(card)} />
               </div>
             ))}
           </div>
