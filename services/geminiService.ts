@@ -20,7 +20,7 @@ const CARD_SCHEMA = {
   }
 };
 
-export const generateBoosterPack = async (targetMythology: string = "mélangée"): Promise<MythologyCard[]> => {
+export const generateBoosterPack = async (targetMythology: string = "mélangée", isPremium: boolean = false): Promise<MythologyCard[]> => {
   const isMixed = targetMythology.toLowerCase() === "mélangée";
   
   const prompt = `Génère 6 cartes mythologiques pour un booster pack en FRANÇAIS.
@@ -29,11 +29,21 @@ export const generateBoosterPack = async (targetMythology: string = "mélangée"
   Contraintes :
   - Le nom, la mythologie, la description et le lore DOIVENT être en français.
   ${isMixed ? "- Les cartes peuvent provenir de n'importe quelle mythologie mondiale (Grecque, Nordique, Égyptienne, Japonaise, etc.)." : `- TOUTES les cartes doivent impérativement appartenir à la mythologie ${targetMythology}.`}
+  
+  Répartition des raretés :
+  ${isPremium ? `
+  - 1 carte DOIT être de rareté 'Mythique'.
+  - 1 carte DOIT être de rareté 'Héroïque'.
+  - 2 cartes doivent être 'Rare'.
+  - 2 cartes doivent être 'Normale'.
+  ` : `
   - 3 cartes doivent avoir la rareté 'Normale'.
   - 2 cartes doivent avoir la rareté 'Rare'.
   - 1 carte doit avoir la rareté 'Épique'.
-  - Il y a 5% de chance que la carte Épique soit remplacée par une carte 'Mythique'.
-  - Il y a 10% de chance qu'une carte Rare soit remplacée par une carte 'Héroïque'.
+  - Il y a 15% de chance que la carte Épique soit remplacée par une carte 'Mythique'.
+  - Il y a 20% de chance qu'une carte Rare soit remplacée par une carte 'Héroïque'.
+  `}
+  
   - Les types doivent être : Personnage, Objet, ou Lieu.
   - Fournis un nom épique, une description courte et un lore immersif pour chaque carte.`;
 

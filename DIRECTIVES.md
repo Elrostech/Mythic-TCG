@@ -1,3 +1,4 @@
+
 # Directives de Développement
 
 Ce fichier sert à consigner les prochaines étapes et les directives spécifiques pour l'évolution de l'application Mythic TCG.
@@ -15,4 +16,5 @@ Ce fichier sert à consigner les prochaines étapes et les directives spécifiqu
 - Vue détaillée des cartes : Cliquez sur une carte pour l'agrandir et lire son histoire complète.
 - Système de Deck Building : Créez votre deck personnalisé de 20 cartes.
 - Effets Sonores : Ambiance sonore synthétisée lors de l'ouverture des boosters et des interactions.
-- **Boosters Thématiques : Plusieurs types de boosters disponibles (Mélangé, Grec, Nordique, Égyptien, Japonais).**
+- Boosters Thématiques : Plusieurs types de boosters disponibles (Mélangé, Grec, Nordique, Égyptien, Japonais).
+- **Cartes Mythiques Garanties : Ajout d'un booster "Ancestral" premium garantissant des cartes Mythiques et Héroïques, et augmentation des chances sur les boosters classiques.**

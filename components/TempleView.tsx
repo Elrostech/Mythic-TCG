@@ -17,6 +17,7 @@ interface BoosterConfig {
   color: string;
   icon: string;
   description: string;
+  isPremium?: boolean;
 }
 
 const BOOSTERS: BoosterConfig[] = [
@@ -25,6 +26,7 @@ const BOOSTERS: BoosterConfig[] = [
   { id: 'norse', name: 'Booster d\'Asgard', mythology: 'Nordique', color: 'from-red-600 to-orange-900', icon: 'fa-hammer', description: 'La puissance des guerriers du Nord.' },
   { id: 'egypt', name: 'Booster du Nil', mythology: 'Égyptienne', color: 'from-yellow-500 to-amber-800', icon: 'fa-ankh', description: 'Les mystères des pharaons et du désert.' },
   { id: 'japan', name: 'Booster du Soleil', mythology: 'Japonaise', color: 'from-pink-600 to-red-900', icon: 'fa-torii-gate', description: 'Les esprits et kamis du Japon féodal.' },
+  { id: 'ancestral', name: 'Booster Ancestral', mythology: 'Mélangée', color: 'from-purple-600 via-pink-600 to-amber-600', icon: 'fa-crown', description: 'Hautes chances de cartes Mythiques et Héroïques.', isPremium: true },
 ];
 
 const TempleView: React.FC<Props> = ({ onCardsGained, onCardClick }) => {
@@ -42,7 +44,7 @@ const TempleView: React.FC<Props> = ({ onCardsGained, onCardClick }) => {
     soundService.playBoosterOpen();
 
     try {
-      const cards = await generateBoosterPack(booster.mythology);
+      const cards = await generateBoosterPack(booster.mythology, booster.isPremium);
       setOpenedCards(cards);
       setTimeout(() => {
         setIsOpening(false);
@@ -70,31 +72,31 @@ const TempleView: React.FC<Props> = ({ onCardsGained, onCardClick }) => {
       </div>
 
       {!showCards ? (
-        <div className="w-full max-w-6xl flex flex-col items-center gap-12">
+        <div className="w-full max-w-7xl flex flex-col items-center gap-12">
           <div className="text-center space-y-4">
             <h2 className="font-cinzel text-4xl sm:text-5xl font-black text-white uppercase tracking-tighter">Le Temple des Invocations</h2>
             <p className="text-stone-400 text-sm sm:text-base max-w-xl mx-auto">
-              Choisissez votre offrande. Chaque booster contient 6 cartes : 3 Normales, 2 Rares et 1 Épique minimum.
+              Choisissez votre offrande. Chaque booster contient 6 cartes légendaires.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 w-full px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 w-full px-4">
             {BOOSTERS.map((booster) => (
               <div 
                 key={booster.id}
                 className={`flex flex-col items-center gap-4 transition-all duration-700 ${isOpening && selectedBooster?.id === booster.id ? 'scale-110' : isOpening ? 'opacity-20 scale-90 blur-sm' : 'hover:scale-105'}`}
               >
                 <div 
-                  className={`w-full aspect-[2/3] bg-gradient-to-br ${booster.color} rounded-2xl border-2 border-white/20 p-1 shadow-2xl relative overflow-hidden group cursor-pointer ${isOpening && selectedBooster?.id === booster.id ? 'animate-pulse' : ''}`}
+                  className={`w-full aspect-[2/3] bg-gradient-to-br ${booster.color} rounded-2xl border-2 ${booster.isPremium ? 'border-amber-400 animate-pulse shadow-[0_0_30px_rgba(251,191,36,0.3)]' : 'border-white/20'} p-1 shadow-2xl relative overflow-hidden group cursor-pointer`}
                   onClick={() => !isOpening && handleOpenBooster(booster)}
                 >
                   <div className="w-full h-full bg-stone-900 rounded-xl flex flex-col items-center justify-center gap-4 relative">
                     <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-                    <div className={`z-10 bg-white/10 p-4 rounded-full shadow-2xl backdrop-blur-md border border-white/20 group-hover:scale-110 transition-transform`}>
-                      <i className={`fa-solid ${booster.icon} text-3xl text-white`}></i>
+                    <div className={`z-10 ${booster.isPremium ? 'bg-amber-500' : 'bg-white/10'} p-4 rounded-full shadow-2xl backdrop-blur-md border border-white/20 group-hover:scale-110 transition-transform`}>
+                      <i className={`fa-solid ${booster.icon} text-3xl ${booster.isPremium ? 'text-stone-900' : 'text-white'}`}></i>
                     </div>
                     <div className="z-10 flex flex-col items-center gap-1 px-4 text-center">
-                      <h3 className="font-cinzel text-sm font-black text-white">{booster.name}</h3>
+                      <h3 className={`font-cinzel text-sm font-black ${booster.isPremium ? 'text-amber-500' : 'text-white'}`}>{booster.name}</h3>
                       <p className="text-[8px] tracking-[0.2em] font-cinzel text-white/50 font-bold uppercase">{booster.mythology}</p>
                     </div>
                   </div>
@@ -110,7 +112,7 @@ const TempleView: React.FC<Props> = ({ onCardsGained, onCardClick }) => {
                 <button 
                   disabled={isOpening}
                   onClick={() => handleOpenBooster(booster)}
-                  className={`px-6 py-2 rounded-full font-cinzel text-[10px] font-black tracking-widest uppercase transition-all flex items-center gap-2 ${isOpening && selectedBooster?.id === booster.id ? 'bg-amber-600 text-stone-900' : 'bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700'}`}
+                  className={`px-6 py-2 rounded-full font-cinzel text-[10px] font-black tracking-widest uppercase transition-all flex items-center gap-2 ${isOpening && selectedBooster?.id === booster.id ? 'bg-amber-600 text-stone-900' : booster.isPremium ? 'bg-amber-500 text-stone-900 hover:bg-amber-400' : 'bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700'}`}
                 >
                   {isOpening && selectedBooster?.id === booster.id ? (
                     <>
