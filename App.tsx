@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import TempleView from './components/TempleView';
 import CollectionView from './components/CollectionView';
 import DeckView from './components/DeckView';
+import CompendiumView from './components/CompendiumView';
 import CardModal from './components/CardModal';
 import { soundService } from './services/soundService';
 
@@ -90,6 +91,12 @@ const App: React.FC = () => {
             onCardClick={handleCardClick} 
             onRemoveFromDeck={handleToggleDeck}
             onClearDeck={handleClearDeck}
+          />
+        )}
+        {view === 'compendium' && (
+          <CompendiumView 
+            collection={collection} 
+            onCardClick={handleCardClick} 
           />
         )}
       </main>

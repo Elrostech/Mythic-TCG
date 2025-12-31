@@ -12,3 +12,49 @@ export const RARITY_STYLES: Record<Rarity, string> = {
 export const MYTHOLOGIES = [
   'Grecque', 'Nordique', 'Égyptienne', 'Japonaise', 'Celtique', 'Aztèque', 'Hindoue'
 ];
+
+export interface CompendiumEntry {
+  name: string;
+  mythology: string;
+  rarity: Rarity;
+}
+
+export const COMPENDIUM_DATA: CompendiumEntry[] = [
+  // Grecque
+  { name: 'Zeus', mythology: 'Grecque', rarity: Rarity.MYTHIC },
+  { name: 'Poséidon', mythology: 'Grecque', rarity: Rarity.MYTHIC },
+  { name: 'Hadès', mythology: 'Grecque', rarity: Rarity.MYTHIC },
+  { name: 'Athéna', mythology: 'Grecque', rarity: Rarity.HEROIC },
+  { name: 'Foudre de Zeus', mythology: 'Grecque', rarity: Rarity.EPIC },
+  { name: 'Mont Olympe', mythology: 'Grecque', rarity: Rarity.RARE },
+  
+  // Nordique
+  { name: 'Odin', mythology: 'Nordique', rarity: Rarity.MYTHIC },
+  { name: 'Thor', mythology: 'Nordique', rarity: Rarity.MYTHIC },
+  { name: 'Loki', mythology: 'Nordique', rarity: Rarity.HEROIC },
+  { name: 'Mjölnir', mythology: 'Nordique', rarity: Rarity.EPIC },
+  { name: 'Yggdrasil', mythology: 'Nordique', rarity: Rarity.MYTHIC },
+  { name: 'Valhalla', mythology: 'Nordique', rarity: Rarity.RARE },
+
+  // Égyptienne
+  { name: 'Râ', mythology: 'Égyptienne', rarity: Rarity.MYTHIC },
+  { name: 'Osiris', mythology: 'Égyptienne', rarity: Rarity.MYTHIC },
+  { name: 'Isis', mythology: 'Égyptienne', rarity: Rarity.HEROIC },
+  { name: 'Anubis', mythology: 'Égyptienne', rarity: Rarity.HEROIC },
+  { name: 'Œil d\'Horus', mythology: 'Égyptienne', rarity: Rarity.EPIC },
+  { name: 'Pyramides de Gizeh', mythology: 'Égyptienne', rarity: Rarity.RARE },
+
+  // Japonaise
+  { name: 'Amaterasu', mythology: 'Japonaise', rarity: Rarity.MYTHIC },
+  { name: 'Susanoo', mythology: 'Japonaise', rarity: Rarity.MYTHIC },
+  { name: 'Tsukuyomi', mythology: 'Japonaise', rarity: Rarity.HEROIC },
+  { name: 'Kusanagi', mythology: 'Japonaise', rarity: Rarity.EPIC },
+  { name: 'Mont Fuji', mythology: 'Japonaise', rarity: Rarity.RARE },
+  { name: 'Inari', mythology: 'Japonaise', rarity: Rarity.RARE },
+
+  // Ancestral / Divers
+  { name: 'Quetzalcóatl', mythology: 'Aztèque', rarity: Rarity.MYTHIC },
+  { name: 'Ganesh', mythology: 'Hindoue', rarity: Rarity.MYTHIC },
+  { name: 'Shiva', mythology: 'Hindoue', rarity: Rarity.MYTHIC },
+  { name: 'Excalibur', mythology: 'Celtique', rarity: Rarity.EPIC },
+];
