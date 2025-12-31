@@ -23,6 +23,9 @@ export interface MythologyCard {
   lore: string;
   imageUrl: string;
   timestamp: number;
+  attack?: number;
+  defense?: number;
+  ability?: string;
 }
 
 export type ViewState = 'temple' | 'collection' | 'deck' | 'compendium' | 'admin';

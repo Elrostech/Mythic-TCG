@@ -20,4 +20,6 @@ Ce fichier sert à consigner les prochaines étapes et les directives spécifiqu
 - Cartes Mythiques Garanties : Ajout d'un booster "Ancestral" premium garantissant des cartes Mythiques et Héroïques, et augmentation des chances sur les boosters classiques.
 - Compendium des Dieux : Nouvelle section listant toutes les entités mythiques possibles par booster. Les cartes non-possédées apparaissent en gris mais restent lisibles. Fonction de recherche intégrée.
 - Ajout de Séléné : La déesse de la lune a rejoint le panthéon grec dans le Compendium.
-- **Section Admin : Nouvel onglet permettant d'invoquer n'importe quelle entité (Nom, Mythologie, Rareté, Type personnalisables) via l'IA, et option de réinitialisation complète.**
+- Section Admin : Nouvel onglet permettant d'invoquer n'importe quelle entité (Nom, Mythologie, Rareté, Type personnalisables) via l'IA, et option de réinitialisation complète.
+- Suppression du logo Discord : Épurage des réseaux sociaux dans la barre de navigation.
+- **Statistiques et Capacités : Ajout des valeurs d'Attaque, de Défense et de Capacités Spéciales uniques pour les cartes de haute rareté.**

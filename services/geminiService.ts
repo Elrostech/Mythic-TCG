@@ -4,33 +4,31 @@ import { MythologyCard, Rarity, CardType } from '../types';
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
+const CARD_PROPERTIES = {
+  name: { type: Type.STRING },
+  type: { type: Type.STRING, enum: Object.values(CardType) },
+  rarity: { type: Type.STRING, enum: Object.values(Rarity) },
+  mythology: { type: Type.STRING },
+  description: { type: Type.STRING },
+  lore: { type: Type.STRING },
+  attack: { type: Type.INTEGER, description: "Valeur d'attaque entre 0 et 100" },
+  defense: { type: Type.INTEGER, description: "Valeur de défense entre 0 et 100" },
+  ability: { type: Type.STRING, description: "Capacité spéciale unique pour les cartes Épiques, Héroïques ou Mythiques (optionnel sinon)" }
+};
+
 const CARD_SCHEMA = {
   type: Type.ARRAY,
   items: {
     type: Type.OBJECT,
-    properties: {
-      name: { type: Type.STRING },
-      type: { type: Type.STRING, enum: Object.values(CardType) },
-      rarity: { type: Type.STRING, enum: Object.values(Rarity) },
-      mythology: { type: Type.STRING },
-      description: { type: Type.STRING },
-      lore: { type: Type.STRING }
-    },
-    required: ["name", "type", "rarity", "mythology", "description", "lore"]
+    properties: CARD_PROPERTIES,
+    required: ["name", "type", "rarity", "mythology", "description", "lore", "attack", "defense"]
   }
 };
 
 const SINGLE_CARD_SCHEMA = {
   type: Type.OBJECT,
-  properties: {
-    name: { type: Type.STRING },
-    type: { type: Type.STRING, enum: Object.values(CardType) },
-    rarity: { type: Type.STRING, enum: Object.values(Rarity) },
-    mythology: { type: Type.STRING },
-    description: { type: Type.STRING },
-    lore: { type: Type.STRING }
-  },
-  required: ["name", "type", "rarity", "mythology", "description", "lore"]
+  properties: CARD_PROPERTIES,
+  required: ["name", "type", "rarity", "mythology", "description", "lore", "attack", "defense"]
 };
 
 export const generateBoosterPack = async (targetMythology: string = "mélangée", isPremium: boolean = false): Promise<MythologyCard[]> => {
@@ -56,6 +54,10 @@ export const generateBoosterPack = async (targetMythology: string = "mélangée"
   - Il y a 15% de chance que la carte Épique soit remplacée par une carte 'Mythique'.
   - Il y a 20% de chance qu'une carte Rare soit remplacée par une carte 'Héroïque'.
   `}
+  
+  Statistiques de combat :
+  - Assigne une valeur d'Attaque (0-100) et de Défense (0-100) cohérente avec le lore.
+  - Pour les cartes Épique, Héroïque ou Mythique, ajoute une 'capacité spéciale' (ability) unique, puissante et courte.
   
   - Les types doivent être : Personnage, Objet, ou Lieu.
   - Fournis un nom épique, une description courte et un lore immersif pour chaque carte.`;
@@ -91,7 +93,7 @@ export const generateSpecificCard = async (name: string, rarity: Rarity, type: C
   Type : ${type}
   Mythologie : ${mythology}
   
-  Fournis une description courte et un lore immersif correspondant à ces critères.`;
+  Fournis une description courte, un lore immersif, des valeurs d'Attaque et de Défense (0-100), et une capacité spéciale (ability) si la rareté est Épique ou plus.`;
 
   try {
     const response = await ai.models.generateContent({

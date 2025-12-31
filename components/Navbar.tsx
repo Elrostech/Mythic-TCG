@@ -70,7 +70,6 @@ const Navbar: React.FC<Props> = ({ currentView, setView, collectionCount, deckCo
       </div>
 
       <div className="hidden sm:flex items-center gap-4 text-stone-400">
-        <i className="fa-brands fa-discord hover:text-white cursor-pointer transition-colors"></i>
         <i className="fa-brands fa-x-twitter hover:text-white cursor-pointer transition-colors"></i>
       </div>
     </nav>

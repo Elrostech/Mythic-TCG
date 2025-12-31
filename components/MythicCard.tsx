@@ -38,6 +38,19 @@ const MythicCard: React.FC<Props> = ({ card, onClick, isNew, isInDeck, onDeckTog
     >
       <div className={`w-full aspect-[2/3] rounded-xl p-0.5 shadow-2xl bg-gradient-to-br ${RARITY_STYLES[card.rarity]} ${isInDeck ? 'ring-2 ring-amber-500 ring-offset-2 ring-offset-stone-950' : ''}`}>
         <div className="w-full h-full rounded-[10px] bg-stone-900 flex flex-col overflow-hidden relative border border-white/10">
+          
+          {/* Stats Badges */}
+          <div className="absolute top-12 left-2 z-20 flex flex-col gap-1">
+            <div className="flex items-center gap-1 bg-red-950/80 backdrop-blur-md border border-red-500/30 px-1.5 py-0.5 rounded shadow-lg">
+              <i className="fa-solid fa-sword text-[8px] text-red-400"></i>
+              <span className="text-[9px] font-black text-red-100">{card.attack ?? '??'}</span>
+            </div>
+            <div className="flex items-center gap-1 bg-blue-950/80 backdrop-blur-md border border-blue-500/30 px-1.5 py-0.5 rounded shadow-lg">
+              <i className="fa-solid fa-shield text-[8px] text-blue-400"></i>
+              <span className="text-[9px] font-black text-blue-100">{card.defense ?? '??'}</span>
+            </div>
+          </div>
+
           <div className="p-3 pb-1 flex justify-between items-start z-10">
             <h3 className="font-cinzel text-xs sm:text-sm font-bold truncate pr-2 tracking-tight text-stone-100">{card.name}</h3>
             <span className="text-[10px] bg-white/10 px-1.5 py-0.5 rounded backdrop-blur-sm border border-white/5 uppercase tracking-widest text-white/70">
@@ -58,7 +71,13 @@ const MythicCard: React.FC<Props> = ({ card, onClick, isNew, isInDeck, onDeckTog
           </div>
 
           <div className="px-3 flex-1 flex flex-col gap-1 overflow-hidden z-10">
-            <p className="text-[10px] text-stone-400 italic line-clamp-2 leading-tight">"{card.description}"</p>
+            {card.ability && (
+              <div className="mb-1 p-1 rounded bg-amber-500/10 border border-amber-500/20">
+                <p className="text-[8px] font-black text-amber-500 uppercase tracking-widest mb-0.5">Capacité</p>
+                <p className="text-[9px] text-stone-200 leading-tight line-clamp-2">{card.ability}</p>
+              </div>
+            )}
+            <p className="text-[9px] text-stone-400 italic line-clamp-1 leading-tight">"{card.description}"</p>
             <div className="h-px bg-white/10 w-full my-1"></div>
             <p className="text-[9px] text-stone-500 leading-relaxed overflow-hidden flex-1 opacity-80">
               {card.lore}

@@ -44,6 +44,19 @@ const CardModal: React.FC<Props> = ({ card, onClose }) => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 md:rounded-l-[22px] md:rounded-r-none"></div>
           
+          <div className="absolute top-8 left-8 flex gap-4">
+             <div className="flex flex-col items-center bg-red-600/90 backdrop-blur-lg px-3 py-2 rounded-xl border border-red-400/50 shadow-2xl">
+               <i className="fa-solid fa-sword text-white text-xs mb-1"></i>
+               <span className="text-xl font-black text-white font-cinzel">{card.attack ?? '??'}</span>
+               <span className="text-[8px] font-bold text-white/70 uppercase">ATK</span>
+             </div>
+             <div className="flex flex-col items-center bg-blue-600/90 backdrop-blur-lg px-3 py-2 rounded-xl border border-blue-400/50 shadow-2xl">
+               <i className="fa-solid fa-shield text-white text-xs mb-1"></i>
+               <span className="text-xl font-black text-white font-cinzel">{card.defense ?? '??'}</span>
+               <span className="text-[8px] font-bold text-white/70 uppercase">DEF</span>
+             </div>
+          </div>
+
           <div className="absolute bottom-8 left-8 right-8">
             <span className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 mb-2 block">{card.mythology}</span>
             <h2 className="font-cinzel text-4xl font-black text-white leading-tight">{card.name}</h2>
@@ -51,7 +64,7 @@ const CardModal: React.FC<Props> = ({ card, onClose }) => {
         </div>
 
         {/* Info Section */}
-        <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col overflow-y-auto max-h-[60vh] md:max-h-none">
+        <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col overflow-y-auto max-h-[60vh] md:max-h-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 text-amber-500">
@@ -70,15 +83,28 @@ const CardModal: React.FC<Props> = ({ card, onClose }) => {
           </div>
 
           <div className="space-y-6">
+            {card.ability && (
+              <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <i className="fa-solid fa-sparkles text-4xl text-amber-500"></i>
+                </div>
+                <h4 className="font-cinzel text-xs font-bold text-amber-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                  <i className="fa-solid fa-star text-[10px]"></i>
+                  Capacité Spéciale
+                </h4>
+                <p className="text-amber-100 font-bold text-sm leading-relaxed">{card.ability}</p>
+              </div>
+            )}
+
             <div>
-              <h4 className="font-cinzel text-xs font-bold text-amber-500/80 uppercase tracking-widest mb-3">Description</h4>
+              <h4 className="font-cinzel text-xs font-bold text-stone-500 uppercase tracking-widest mb-3">Description</h4>
               <p className="text-stone-300 italic text-lg leading-relaxed">"{card.description}"</p>
             </div>
 
             <div className="h-px bg-white/5 w-full"></div>
 
             <div>
-              <h4 className="font-cinzel text-xs font-bold text-amber-500/80 uppercase tracking-widest mb-3">Le Mythe</h4>
+              <h4 className="font-cinzel text-xs font-bold text-stone-500 uppercase tracking-widest mb-3">Le Mythe</h4>
               <p className="text-stone-400 text-sm leading-loose whitespace-pre-wrap">
                 {card.lore}
               </p>
@@ -87,7 +113,7 @@ const CardModal: React.FC<Props> = ({ card, onClose }) => {
 
           <button 
             onClick={onClose}
-            className="mt-auto hidden md:flex items-center justify-center gap-3 w-full py-4 bg-stone-900 hover:bg-stone-800 text-stone-300 rounded-xl font-cinzel font-bold text-sm tracking-widest uppercase transition-all border border-stone-800"
+            className="mt-8 flex items-center justify-center gap-3 w-full py-4 bg-stone-900 hover:bg-stone-800 text-stone-300 rounded-xl font-cinzel font-bold text-sm tracking-widest uppercase transition-all border border-stone-800"
           >
             Fermer l'Archive
           </button>
